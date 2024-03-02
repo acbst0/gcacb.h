@@ -26,3 +26,22 @@ void	*ft_memset(void *str, int x, size_t a)
 	}
 	return (p);
 }
+
+void	ft_lstadd_back(t_gc **lst, t_gc *new)
+{
+	t_gc	*tmp;
+
+	tmp = *lst;
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	while (tmp -> next)
+	{
+		tmp = tmp -> next;
+	}
+	tmp->next = new;
+}

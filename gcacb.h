@@ -14,17 +14,19 @@
 # define GCACB_H
 
 # include <unistd.h>
+# include <stdlib.h>
 
 typedef struct s_gc
 {
 	void			*allocated;
-	struct s_list	*next;
+	struct s_gc		*next;
 }				t_gc;
 
 void	*ft_memset(void *str, int x, size_t a);
 void	*gc_init(void);
 void	*gc_malloc(size_t size, void *ptr);
 void	*gc_calloc(size_t count, size_t size, void *ptr);
-void	gc_collect(void);
+void	gc_collect(void *ptr);
+void	ft_lstadd_back(t_gc **lst, t_gc *new);
 
 #endif

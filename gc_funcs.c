@@ -16,11 +16,13 @@
 void *gc_init(void)
 {
 	t_gc	*gc;
+	void	*ptr;
 
 	gc = (t_gc *)malloc(sizeof(t_gc));
 	gc->allocated = NULL;
 	gc->next = NULL;
-	return (gc);
+	ptr = gc;
+	return (ptr);
 }
 
 void	*gc_malloc(size_t size, void *ptr)
@@ -32,9 +34,9 @@ void	*gc_malloc(size_t size, void *ptr)
 	while (tmp->next)
 		tmp = tmp->next;
 	new = (t_gc *)malloc(sizeof(t_gc));
-	tmp->next = new;
+	ft_lstadd_back(&tmp, new);
 	new->allocated = malloc(size);
-	return (tmp->allocated);
+	return (new->allocated);
 }
 
 void	*gc_calloc(size_t count, size_t size, void *ptr)
@@ -46,13 +48,38 @@ void	*gc_calloc(size_t count, size_t size, void *ptr)
 	while (tmp->next)
 		tmp = tmp->next;
 	new = (t_gc *)malloc(sizeof(t_gc));
-	tmp->next = new;
-	new->allocated = malloc(size);
+	ft_lstadd_back(&tmp, new);
+	new->allocated = malloc(size * count);
 	ft_memset(new->allocated, 0, size);
-	return (tmp->allocated);
+	return (new->allocated);
+}
+
+void	gc_free(void *ptr)
+{
+	t_gc	*tmp;
+	t_gc	*tmp2;
+
+	tmp = ptr;
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2->allocated);
+		free(tmp2);
+	}
 }
 
 void	gc_collect(void *ptr)
 {
-	
+	t_gc	*tmp;
+	t_gc	*tmp2;
+
+	tmp = ptr;
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2->allocated);
+		free(tmp2);
+	}
 }
