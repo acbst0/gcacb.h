@@ -6,7 +6,7 @@
 /*   By: abostano <abostano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:24:11 by abostano          #+#    #+#             */
-/*   Updated: 2024/02/27 20:12:37 by abostano         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:23:43 by abostano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,4 @@ void	*ft_memset(void *str, int x, size_t a)
 		i++;
 	}
 	return (p);
-}
-
-void	ft_lstadd_back(t_gc **lst, t_gc *new)
-{
-	t_gc	*tmp;
-
-	tmp = *lst;
-	if (!lst || !new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	while (tmp -> next)
-	{
-		tmp = tmp -> next;
-	}
-	tmp->next = new;
 }

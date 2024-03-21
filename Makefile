@@ -1,22 +1,21 @@
 NAME	= gcacb.a
 
-FILES	= gc_utils1.c \
-			gc_funcs.c \
-
-OBJ		= $(FILES:.c=.o)
+FILES	= gc_funcs.c \
+		gc_acb.c \
 
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Wextra -Werror
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -c $(FILES)
-	ar -rc $(NAME) $(OBJ)
+OBJS	= $(FILES:.c=.o)
+
+$(NAME): $(OBJS)
+	ar -r -c $(NAME) $(OBJS)
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
