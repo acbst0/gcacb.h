@@ -6,7 +6,7 @@
 /*   By: abostano <abostano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:20:51 by abostano          #+#    #+#             */
-/*   Updated: 2024/03/21 11:22:41 by abostano         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:41:14 by abostano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 
 typedef struct s_gc
 {
+	size_t			number;
 	void			*allocated;
-	struct s_list	*next;
+	struct s_gc		*prev;
+	struct s_gc		*next;
 }				t_gc;
 
 void	*ft_memset(void *str, int x, size_t a);
-void	*gc_init(void);
-void	*gc_malloc(size_t size, void *ptr);
-void	*gc_calloc(size_t count, size_t size, void *ptr);
-void	gc_free(void *allocated, void *ptr);
-void	gc_collect(void *ptr);
+t_gc	*gc_init(void);
+void	*gc_malloc(t_gc *head, size_t size);
+void	*gc_calloc(t_gc *head, size_t nmemb, size_t size);
+int		gc_free(t_gc *head, void *alloc);
+void	gc_collect(t_gc *head);
 
 #endif
